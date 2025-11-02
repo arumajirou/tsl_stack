@@ -32,3 +32,10 @@ nf = [
 
 [project.scripts]
 tsl = "tsl.cli.tsl:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["tsl*"]

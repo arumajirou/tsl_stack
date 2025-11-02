@@ -17,3 +17,7 @@ out*.json
 # IDE/OS
 .vscode/
 .DS_Store
+
+# Build artifacts
+*.egg-info/
+src/*.egg-info/

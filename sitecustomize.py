@@ -1,30 +1,28 @@
-# File: sitecustomize.py
-# -*- coding: utf-8 -*-
-"""
-Local developer convenience hook.
+# sitecustomize.py
+# - src レイアウトを最優先
+# - もし sys.path に tsl_integrated_pkg/src が残っていたら取り除く
 
-Goal:
-- Ensure "src/" is on sys.path whenever Python is started from the repo root,
-  so `import tsl` works without requiring `pip install -e .` or manual PYTHONPATH.
-
-Behavior:
-- Only acts if this file is on sys.path (i.e., when running from repo root).
-- No stdout noise; fully silent on success/failure.
-"""
-
-from __future__ import annotations
-import sys
+import os, sys
 from pathlib import Path
 
+repo_root = Path(__file__).resolve().parent
+src = repo_root / "src"
+legacy = repo_root / "tsl_integrated_pkg" / "src"
+
+# 先頭に src をセット
+src_str = str(src)
+if src.exists():
+    if src_str in sys.path:
+        sys.path.remove(src_str)
+    sys.path.insert(0, src_str)
+
+# 旧パスは除去
+legacy_str = str(legacy)
 try:
-    _ROOT = Path(__file__).resolve().parent
-    _SRC = _ROOT / "src"
-    _PKG = _SRC / "tsl"
-    if _SRC.is_dir() and _PKG.is_dir():
-        sp = str(_SRC)
-        if sp not in sys.path:
-            # Prepend to prioritize live sources over any installed dist.
-            sys.path.insert(0, sp)
+    while legacy_str in sys.path:
+        sys.path.remove(legacy_str)
 except Exception:
-    # Be permissive—never crash interpreter startup.
     pass
+
+# 便利: TSL_BASE の既定
+os.environ.setdefault("TSL_BASE", str(repo_root / "nf_auto_runs"))
