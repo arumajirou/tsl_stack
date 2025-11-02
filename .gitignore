@@ -21,3 +21,17 @@ out*.json
 # Build artifacts
 *.egg-info/
 src/*.egg-info/
+# Outputs / logs
+nf_auto_runs/runs/
+nf_auto_runs/models_full/
+nf_auto_runs/lightning_logs/
+lightning_logs
+archive/
+*.log
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
