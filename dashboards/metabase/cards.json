@@ -1,0 +1,11 @@
+{
+  "collection": "tsl",
+  "cards": [
+    {
+      "name": "Runs per day",
+      "type": "native",
+      "dataset_query": {"type": "native", "native": {"query": "SELECT date_trunc('day', finished_at) AS day, count(*) AS runs FROM nf_runs GROUP BY 1 ORDER BY 1 DESC LIMIT 30;"}},
+      "display": "table"
+    }
+  ]
+}

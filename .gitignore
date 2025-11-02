@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Project artifacts & runs
+lightning_logs/
+artifacts/
+nf_auto_runs/runs/
+nf_auto_runs/models_full/
+nf_auto_runs/logs/
+preds.sqlite
+
+# Local outputs
+out*.json
+
+# IDE/OS
+.vscode/
+.DS_Store
