@@ -25,6 +25,11 @@ help:
 	@echo "  clean-plan     - Show workspace-clean plan (dry-run)"
 	@echo "  clean-all      - Clean workspace (no confirm)"
 	@echo ""
+	@echo "  tidy            - レイアウト整理を実行"
+	@echo "  tidy-dry        - ドライラン（変更なし）"
+	@echo "  tidy-aggressive - 退避/egg-info も削除"
+	@echo "  tidy-move-data  - サンプルCSVを tests/data へ移動"
+	@echo "  tidy-no-symlink - lightning_logs の symlink を作らない"
 
 # ----------------------
 # Setup
@@ -86,3 +91,23 @@ clean-plan:
 .PHONY: clean-all
 clean-all:
 	$(PY) -m tsl.cli.tsl workspace-clean --all -y
+
+.PHONY: tidy tidy-dry tidy-aggressive tidy-move-data tidy-no-symlink
+
+TIDY := scripts/tidy_layout.sh
+
+tidy:
+	- $(TIDY)
+
+tidy-dry:
+	- $(TIDY) --dry-run
+
+tidy-aggressive:
+	- $(TIDY) --aggressive
+
+tidy-move-data:
+	- $(TIDY) --move-sample-data
+
+tidy-no-symlink:
+	- $(TIDY) --no-symlink
+
