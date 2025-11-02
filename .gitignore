@@ -35,3 +35,5 @@ __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
+backup/
+tsl_integrated_pkg/
